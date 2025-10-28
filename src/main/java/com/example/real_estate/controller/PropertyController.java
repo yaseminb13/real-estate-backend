@@ -22,7 +22,6 @@ public class PropertyController {
     @Autowired
     private BusinessRepository businessRepository;
 
-    // 🔹 TÜM VEYA FİLTRELİ EMLAKLARI GETİR
     @GetMapping
     public List<Property> getFilteredProperties(
             @RequestParam(required = false) String type,
@@ -49,19 +48,16 @@ public class PropertyController {
                 .collect(Collectors.toList());
     }
 
-    // 🔹 ID’ye göre emlak getir
     @GetMapping("/{id}")
     public Optional<Property> getPropertyById(@PathVariable Long id) {
         return propertyRepository.findById(id);
     }
 
-    // 🔹 Yeni emlak ekle
     @PostMapping
     public Property createProperty(@RequestBody Property property) {
         return propertyRepository.save(property);
     }
 
-    // 🔹 İşletmeyle birlikte yeni emlak ekle
     @PostMapping("/with-business/{businessId}")
     public Property createPropertyWithBusiness(@PathVariable Long businessId, @RequestBody Property property) {
         Business business = businessRepository.findById(businessId)
@@ -70,7 +66,6 @@ public class PropertyController {
         return propertyRepository.save(property);
     }
 
-    // 🔹 Emlak güncelle
     @PutMapping("/{id}")
     public Property updateProperty(@PathVariable Long id, @RequestBody Property updatedProperty) {
         return propertyRepository.findById(id)
@@ -90,7 +85,6 @@ public class PropertyController {
                 });
     }
 
-    // 🔹 Emlak sil
     @DeleteMapping("/{id}")
     public void deleteProperty(@PathVariable Long id) {
         propertyRepository.deleteById(id);

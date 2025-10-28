@@ -17,12 +17,10 @@ public class Customer {
     private String email;
     private String address;
 
-    // Bir müşteri bir işletmeye ait
     @ManyToOne
     @JoinColumn(name = "business_id")
     private Business business;
 
-    // --- Constructors ---
     public Customer() {}
 
     public Customer(String name, String phone, String email, String address, Business business) {
@@ -33,7 +31,6 @@ public class Customer {
         this.business = business;
     }
 
-    // --- Getters & Setters ---
     public Long getId() {
         return id;
     }

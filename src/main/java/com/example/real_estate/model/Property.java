@@ -13,11 +13,11 @@ public class Property {
     @Column(nullable = false)
     private String title;
 
-    private String type; // örnek: Satılık, Kiralık
+    private String type;
     private String city;
     private String district;
     private Double price;
-    private Double area; // metrekare
+    private Double area;
 
     @ManyToOne
     @JoinColumn(name = "business_id")
@@ -36,7 +36,6 @@ public class Property {
         this.business = business;
     }
 
-    // --- Getters & Setters ---
     public Long getId() {
         return id;
     }

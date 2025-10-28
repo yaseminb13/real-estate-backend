@@ -10,31 +10,27 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/businesses")
-@CrossOrigin(origins = "*") // tarayıcıdan erişim için (güvenli)
+@CrossOrigin(origins = "*")
 public class BusinessController {
 
     @Autowired
     private BusinessRepository businessRepository;
 
-    // Tüm işletmeleri listele
     @GetMapping
     public List<Business> getAllBusinesses() {
         return businessRepository.findAll();
     }
 
-    // ID’ye göre işletme getir
     @GetMapping("/{id}")
     public Optional<Business> getBusinessById(@PathVariable Long id) {
         return businessRepository.findById(id);
     }
 
-    // Yeni işletme ekle
     @PostMapping
     public Business createBusiness(@RequestBody Business business) {
         return businessRepository.save(business);
     }
 
-    // Var olan işletmeyi güncelle
     @PutMapping("/{id}")
     public Business updateBusiness(@PathVariable Long id, @RequestBody Business updatedBusiness) {
         return businessRepository.findById(id)
@@ -52,7 +48,6 @@ public class BusinessController {
                 });
     }
 
-    // İşletme sil
     @DeleteMapping("/{id}")
     public void deleteBusiness(@PathVariable Long id) {
         businessRepository.deleteById(id);

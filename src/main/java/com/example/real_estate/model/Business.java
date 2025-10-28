@@ -18,7 +18,6 @@ public class Business {
     private String phone;
     private String fax;
 
-    // --- Constructors ---
     public Business() {}
 
     public Business(String name, String authorizedPerson, String address, String phone, String fax) {
@@ -29,7 +28,6 @@ public class Business {
         this.fax = fax;
     }
 
-    // --- Getters & Setters ---
     public Long getId() {
         return id;
     }
