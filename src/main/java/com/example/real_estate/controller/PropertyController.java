@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/properties")
@@ -21,21 +22,46 @@ public class PropertyController {
     @Autowired
     private BusinessRepository businessRepository;
 
+    // 🔹 TÜM VEYA FİLTRELİ EMLAKLARI GETİR
     @GetMapping
-    public List<Property> getAllProperties() {
-        return propertyRepository.findAll();
+    public List<Property> getFilteredProperties(
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String district,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) Double minArea,
+            @RequestParam(required = false) Double maxArea
+    ) {
+        List<Property> properties = propertyRepository.findAll();
+
+        return properties.stream()
+                .filter(p -> type == null || type.isEmpty() ||
+                        (p.getType() != null && p.getType().equalsIgnoreCase(type)))
+                .filter(p -> city == null || city.isEmpty() ||
+                        (p.getCity() != null && p.getCity().equalsIgnoreCase(city)))
+                .filter(p -> district == null || district.isEmpty() ||
+                        (p.getDistrict() != null && p.getDistrict().equalsIgnoreCase(district)))
+                .filter(p -> minPrice == null || (p.getPrice() != null && p.getPrice() >= minPrice))
+                .filter(p -> maxPrice == null || (p.getPrice() != null && p.getPrice() <= maxPrice))
+                .filter(p -> minArea == null || (p.getArea() != null && p.getArea() >= minArea))
+                .filter(p -> maxArea == null || (p.getArea() != null && p.getArea() <= maxArea))
+                .collect(Collectors.toList());
     }
 
+    // 🔹 ID’ye göre emlak getir
     @GetMapping("/{id}")
     public Optional<Property> getPropertyById(@PathVariable Long id) {
         return propertyRepository.findById(id);
     }
 
+    // 🔹 Yeni emlak ekle
     @PostMapping
     public Property createProperty(@RequestBody Property property) {
         return propertyRepository.save(property);
     }
 
+    // 🔹 İşletmeyle birlikte yeni emlak ekle
     @PostMapping("/with-business/{businessId}")
     public Property createPropertyWithBusiness(@PathVariable Long businessId, @RequestBody Property property) {
         Business business = businessRepository.findById(businessId)
@@ -44,6 +70,7 @@ public class PropertyController {
         return propertyRepository.save(property);
     }
 
+    // 🔹 Emlak güncelle
     @PutMapping("/{id}")
     public Property updateProperty(@PathVariable Long id, @RequestBody Property updatedProperty) {
         return propertyRepository.findById(id)
@@ -63,9 +90,9 @@ public class PropertyController {
                 });
     }
 
+    // 🔹 Emlak sil
     @DeleteMapping("/{id}")
     public void deleteProperty(@PathVariable Long id) {
         propertyRepository.deleteById(id);
     }
 }
-
