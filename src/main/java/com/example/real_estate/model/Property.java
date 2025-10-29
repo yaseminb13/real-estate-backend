@@ -18,85 +18,66 @@ public class Property {
     private String district;
     private Double price;
     private Double area;
+    private String heatingType;
+    private Integer roomCount;
+    private Integer floorCount;
+    private Integer currentFloor;
 
     @ManyToOne
     @JoinColumn(name = "business_id")
     private Business business;
-
-    // --- Constructors ---
+    
     public Property() {}
 
-    public Property(String title, String type, String city, String district, Double price, Double area, Business business) {
+    public Property(String title, String type, String city, String district, Double price, Double area,
+                    String heatingType, Integer roomCount, Integer floorCount, Integer currentFloor,
+                    Business business) {
         this.title = title;
         this.type = type;
         this.city = city;
         this.district = district;
         this.price = price;
         this.area = area;
+        this.heatingType = heatingType;
+        this.roomCount = roomCount;
+        this.floorCount = floorCount;
+        this.currentFloor = currentFloor;
         this.business = business;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public String getTitle() {
-        return title;
-    }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public String getCity() { return city; }
+    public void setCity(String city) { this.city = city; }
 
-    public String getType() {
-        return type;
-    }
+    public String getDistrict() { return district; }
+    public void setDistrict(String district) { this.district = district; }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+    public Double getPrice() { return price; }
+    public void setPrice(Double price) { this.price = price; }
 
-    public String getCity() {
-        return city;
-    }
+    public Double getArea() { return area; }
+    public void setArea(Double area) { this.area = area; }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+    public String getHeatingType() { return heatingType; }
+    public void setHeatingType(String heatingType) { this.heatingType = heatingType; }
 
-    public String getDistrict() {
-        return district;
-    }
+    public Integer getRoomCount() { return roomCount; }
+    public void setRoomCount(Integer roomCount) { this.roomCount = roomCount; }
 
-    public void setDistrict(String district) {
-        this.district = district;
-    }
+    public Integer getFloorCount() { return floorCount; }
+    public void setFloorCount(Integer floorCount) { this.floorCount = floorCount; }
 
-    public Double getPrice() {
-        return price;
-    }
+    public Integer getCurrentFloor() { return currentFloor; }
+    public void setCurrentFloor(Integer currentFloor) { this.currentFloor = currentFloor; }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Double getArea() {
-        return area;
-    }
-
-    public void setArea(Double area) {
-        this.area = area;
-    }
-
-    public Business getBusiness() {
-        return business;
-    }
-
-    public void setBusiness(Business business) {
-        this.business = business;
-    }
+    public Business getBusiness() { return business; }
+    public void setBusiness(Business business) { this.business = business; }
 }

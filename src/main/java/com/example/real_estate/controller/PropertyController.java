@@ -77,6 +77,11 @@ public class PropertyController {
                     property.setPrice(updatedProperty.getPrice());
                     property.setArea(updatedProperty.getArea());
                     property.setBusiness(updatedProperty.getBusiness());
+                    property.setHeatingType(updatedProperty.getHeatingType());
+                    property.setRoomCount(updatedProperty.getRoomCount());
+                    property.setFloorCount(updatedProperty.getFloorCount());
+                    property.setCurrentFloor(updatedProperty.getCurrentFloor());
+
                     return propertyRepository.save(property);
                 })
                 .orElseGet(() -> {
@@ -84,6 +89,7 @@ public class PropertyController {
                     return propertyRepository.save(updatedProperty);
                 });
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteProperty(@PathVariable Long id) {
